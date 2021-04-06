@@ -7,6 +7,11 @@ var search = document.querySelector(".search");
 var input = document.querySelector("#event");
 var displayBox = document.querySelector(".displayBox");
 var forecast = document.querySelector(".forecast");
+var list = document.querySelector("#list");
+var searchBtn = document.querySelector(".searchBtn");
+var searchHistory = JSON.parse (localStorage.getItem("event"));
+  if (!searchHistory) {searchHistory = []};
+  console.log(searchHistory);
 
 search.addEventListener("submit", function(event) {
 event.preventDefault();
@@ -20,6 +25,13 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&units=i
      cityName.innerHTML = input.value;
      cityTime.innerHTML = time;
     });
+if (!searchHistory.includes(input.value)){
+  searchHistory.push(input.value);
+};
+
+localStorage.setItem("event", JSON.stringify(searchHistory));
+
+console.log(searchHistory);
 });
 
 
